@@ -194,6 +194,22 @@ async function run() {
 			res.send(result);
 		});
 
+		// storing user signed in with google
+		app.put('/adduser', async (req, res) => {
+			const user = req.body;
+
+			const filter = { email: user.email };
+			const options = { upsert: true };
+			const updateUser = { $set: user };
+			const result = await userCollection.updateOne(
+				filter,
+				updateUser,
+				options
+			);
+
+			res.json(result);
+		});
+
 		// deleting comment from collection
 		app.delete('/comment/:_id', async (req, res) => {
 			const { _id } = req.params;
