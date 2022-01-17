@@ -64,12 +64,21 @@ async function run() {
 		// users CRUD //
 
 		// sending all the requests
-		app.get('/requests', async (req, res) => {
-			const cursor = featureRequestCollection.find().sort({ _id: -1 });
+		app.get(`/requests`, async (req, res) => {
+			const { page, size } = req.query;
+
+			console.log(size * (page - 1));
+
+			const count = await featureRequestCollection.countDocuments();
+			const cursor = featureRequestCollection
+				.find()
+				.sort({ _id: -1 })
+				.skip(size * (page - 1))
+				.limit(Number(size));
 
 			const requests = await cursor.toArray();
 
-			res.send(requests);
+			res.send({ count, requests });
 		});
 
 		// sending single request
