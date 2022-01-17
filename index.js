@@ -68,11 +68,18 @@ async function run() {
 			const { page, size } = req.query;
 
 			const count = await featureRequestCollection.countDocuments();
-			const cursor = featureRequestCollection
-				.find()
-				.sort({ _id: -1 })
-				.skip(size * (page - 1))
-				.limit(Number(size));
+
+			let cursor;
+
+			if (page && size) {
+				cursor = featureRequestCollection
+					.find()
+					.sort({ _id: -1 })
+					.skip(size * (page - 1))
+					.limit(Number(size));
+			} else {
+				cursor = featureRequestCollection.find().sort({ _id: -1 });
+			}
 
 			const requests = await cursor.toArray();
 
