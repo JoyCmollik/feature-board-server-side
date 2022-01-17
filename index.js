@@ -18,7 +18,7 @@ const fileUpload = require('express-fileupload');
 const port = process.env.PORT || 5000;
 
 // feature-request-board-firebase-adminsdk
-const serviceAccount = require('./feature-request-board-firebase-adminsdk.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
@@ -66,8 +66,6 @@ async function run() {
 		// sending all the requests
 		app.get(`/requests`, async (req, res) => {
 			const { page, size } = req.query;
-
-			console.log(size * (page - 1));
 
 			const count = await featureRequestCollection.countDocuments();
 			const cursor = featureRequestCollection
