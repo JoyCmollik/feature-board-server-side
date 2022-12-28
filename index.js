@@ -17,7 +17,7 @@ const fileUpload = require('express-fileupload');
 
 const port = process.env.PORT || 5001;
 
-// feature-request-board-firebase-adminsdk
+// feature-request-board-firebase-adminsdk-credentials
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
