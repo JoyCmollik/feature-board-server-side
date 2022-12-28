@@ -15,14 +15,14 @@ const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
 const fileUpload = require('express-fileupload');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 // feature-request-board-firebase-adminsdk
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+// const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
-});
+// admin.initializeApp({
+// 	credential: admin.credential.cert(serviceAccount),
+// });
 
 // middleware
 app.use(cors());
